@@ -1,10 +1,8 @@
 # ece209as_project
-This is repository template for UCLA ECE209AS projects.
+This is a repository for UCLA ECE209AS project done by Ruoye Wang, Jinchen Wu, and Weijian Zhang.
 
-Use the folders as follows:
+Descriptions of the folders:
 
 * doc/ for website content
-* software/ for code used in your project
-* data/ for data data used in your project
-
-You may add additional folders as necessary.
+* software/ for codes used in our project
+* data/ for data used in our project
