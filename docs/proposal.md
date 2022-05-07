@@ -2,35 +2,53 @@
 
 ## 1. Motivation & Objective
 
-What are you trying to do and why? (plain English without jargon)
+Forgeries in media could be harmful in lots of aspects, including politics, military, security, etc. Previously, classical computer vision techniques were enough to deal with media manually manipulated by humans. However, recently advanced deep learning methods have been used to forge or falsify media. For instance, deepfakes, which uses artificial intelligence to swap people’s faces in media, is one of those sophisticated techniques that classical computer vision techniques cannot cope with. Thus, we aim to derive new learning-based methods to detect fake videos created by deepfakes.
+
 
 ## 2. State of the Art & Its Limitations
 
-How is it done today, and what are the limits of current practice?
+Most prior work designed models to detect deepfake videos based on two principles: one is that deepfake videos have visual artifacts across frames, and the other is that temporal features may not be consistent after the synthesis process of deepfakes. Moreover, a variety of network architectures have been proved useful and achieved high classification accuracy in previous researches. However, most work just exploited single modality. Since we have several potential features to use to detect deepfake videos, a natural question emerges: can we design multimodal deepfake detection methods to further increase the classification accuracy or to deal with even more advanced deepfakes?
+
 
 ## 3. Novelty & Rationale
 
-What is new in your approach and why do you think it will be successful?
+We aim to propose a multimodal deepfake method, making use of both visual and speech information in the input video.  Mittal et al. utilized the similarity between face and speech modalities with the help of affective cues and their model worked pretty well on DeepFakeTIMIT and DFDC datasets. Plus, some previous work has shown that lip-speech synchronization is a good feature to use when detecting deepfake videos. Since we believe Mittal’s method and lip-speech synchronization are complementary, we plan to design a proper architecture to effectively combine them together and further improve the classification accuracy compared with Mittal’s work.
+
 
 ## 4. Potential Impact
 
-If the project is successful, what difference will it make, both technically and broadly?
+If the project is successful, one direct impact is that the classification accuracy rate of deepfake videos would be improved to another step. If the accuracy does not outperform previous work, our project will also be meaningful since it provides an example of how to combine different modalities to detect deepfake videos as effectively as possible. It may inspire other researchers and indirectly lead up to better models.
+In general, the progress in detecting deepfake videos would benefit lots of areas, including politics, military, and security, etc.
+
 
 ## 5. Challenges
 
-What are the challenges and risks?
+* Training models to detect fake videos requires a large quantity of computing. 
+* Appropriate network architectures have to be designed to effectively combine methods using different modalities.
+
 
 ## 6. Requirements for Success
 
-What skills and resources are necessary to perform the project?
+* Abilities to realize which features are more useful and could be put together to train the model.
+* Skills to design, implement, and analyze deep learning networks.
+* Efficient computing resources, such as GPU.
+
 
 ## 7. Metrics of Success
 
-What are metrics by which you would check for success?
+We plan to apply the Area Under Curve (AUC) metric on benchmark datasets and compare results with those from previous work.
+
 
 ## 8. Execution Plan
 
-Describe the key tasks in executing your project, and in case of team project describe how will you partition the tasks.
+Generally speaking, key tasks consist of selecting features to use, designing neural networks, training the model using Pytorch, analyzing the network and the performance, and tuning the network (parameters).
+
+As a team, we would do the project cooperatively. Each team member would participate in each single task. But we claim different emphasis for each member:
+
+* Ruoye Wang: analyze the model and performance
+* Jinchen Wu: implement the model using Pytorch and train the model
+* Weijian Zhang: determine which features to use and design the architecture
+
 
 ## 9. Related Work
 
