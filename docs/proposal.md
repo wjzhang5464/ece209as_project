@@ -2,7 +2,7 @@
 
 ## 1. Motivation & Objective
 
-Multimedia forgeries threatens data and identity security not only in ordinary people's life but also in important fields such as politics and military. Previously, classical computer vision techniques were sufficient to detect manually manipulated media. However, recent progress in deep learning methods eases the falsification of  media contents, one of which is deepfakes that use artificial intelligence to swap people’s faces in videos and successfully survives classical detection techniques. Thus, we aim to derive new learning-based methods to detect fake videos created by deepfakes.
+Multimedia forgeries threaten data and identity security not only in ordinary people's life but also in important fields such as politics and military. Previously, classical computer vision techniques were sufficient to detect manually manipulated media. However, recent progress in deep learning methods eases the falsification of  media contents, one of which is deepfakes that use artificial intelligence to swap people’s faces in videos and successfully survives classical detection techniques. Thus, we aim to derive new learning-based methods to detect fake videos created by deepfakes.
 
 
 ## 2. State of the Art & Its Limitations
