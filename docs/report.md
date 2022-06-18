@@ -49,7 +49,14 @@ Based on the inspirations above, we proposed an audio-visual based multimodal ar
 We plan to apply the Area Under Curve (AUC) metric to our models on benchmark datasets and compare results with those from previous work.
 
 # 2. Related Work
-
+## Unimodal methods:
+* Intra-frame visual artifacts: 
+Li et al.[1] proposed to use DNN to detect artifacts observed during the face warping step of the generation algorithms; Yang et al.[2] used the discontinuity of head pose in synthetic videos as a basis for recognition
+* Inter-frame inconsistencies:
+Guera and Delp et al.[3] and Sabir et al.[4] both found that deepfake videos contain intra-frame consistencies and combined CNN and LSTM to detect them using different architectures.
+## Multimodal methods:
+* Mittal et al.[5] exploit the congruence between facial and verbal emotions by constructing a double Siamese neural network consisting of extracted expression features and expression vectors, and extracted vocal features and vocal emotion vectors.
+* Hosler et al.[6] leverage LSTM networks that predict emotion from audio and video Low-Level Descriptors (LLDs) and classify videos as authentic or deepfakes through an additional supervised classifier trained on the predicted emotion.
 # 3. Technical Approach
 
 # 4. Evaluation and Results
