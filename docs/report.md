@@ -61,9 +61,13 @@ Guera and Delp et al.[3] and Sabir et al.[4] both found that deepfake videos con
 ## Dataset
 Since the creation of deepfake techniques, a series of datasets have been generated to train and test deepfake detection models. Because our model has to extract features both from visual and audio information, it is necessary to select visual-audio based datasets. Among them, two famous ones are DeepfakeTIMIT (DFTIMIT[11]) and DFDC[12].
 ### DFTIMIT
-
+DFTIMIT dataset contains in total 320 fake videos of 32 different people. Each of the subjects has 10 videos. Each video in DFTIMIT is manipulated by operating face swapping from real videos in VIDTIMIT[14] database using FS-GAN, an open-source GAN-based method. Similarly, VIDTIMIT contains in total 320 real videos of 32 different people. Only the visual channel has been manipulated while the audio channel remains authentic. In addition, they used two sizes of FS-GAN models, resulting two series of fake videos: High Quality (HQ) and Low Quality (LQ), respectively. We found that the HQ videos have more obvious facial details while the LQ videosl are more blurred. So we decided to involve the HQ results to the training set. Each video is of 512 × 384 resolution with a 25 fps frame rate, and of ≈ 4𝑠 duration.
 ### DFDC
-
+In DFDC dataset, there are over 100,000 videos (real and fake videos both included). The details of the manipulations have not been disclosed. The manipulations exist in either the audio channel or the visual channel or both. The videos are of ≈ 10𝑠 durations, each with an fps of 30. So there are ≈ 300 frames per video.
+### Principles of selecting data
+Our method requires the dataset to have both audio and visual channels. The reason why we chose these two datasets is that they are the only two datasets that have both audio and visual information among common deepfake datasets.
+In DFTIMIT, all camera angles are frontal. We selected 3 out of 32 subjects as the test set, which ensures that our method is not learning face identities but fake features.
+In DFDC, due to the limitation of computing equipment, we only selected training data of almost the same size as the DFTIMIT dataset. Each folder in DFDC consists of videos from a single subject. We selected subjects from different folders, covering as many identities as possible. We also selected videos with manipulations on different channels and different fake effects. After that, we removed the incomplete face data. Finally, we used 623 videos for training, and 62 for testing.
 # 4. Evaluation and Results
 
 # 5. Discussion and Conclusions
