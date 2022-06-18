@@ -58,6 +58,11 @@ Guera and Delp et al.[3] and Sabir et al.[4] both found that deepfake videos con
 * Mittal et al.[5] exploit the congruence between facial and verbal emotions by constructing a double Siamese neural network consisting of extracted expression features and expression vectors, and extracted vocal features and vocal emotion vectors.
 * Hosler et al.[6] leverage LSTM networks that predict emotion from audio and video Low-Level Descriptors (LLDs) and classify videos as authentic or deepfakes through an additional supervised classifier trained on the predicted emotion.
 # 3. Technical Approach
+## Dataset
+Since the creation of deepfake techniques, a series of datasets have been generated to train and test deepfake detection models. Because our model has to extract features both from visual and audio information, it is necessary to select visual-audio based datasets. Among them, two famous ones are DeepfakeTIMIT (DFTIMIT[11]) and DFDC[12].
+### DFTIMIT
+
+### DFDC
 
 # 4. Evaluation and Results
 
