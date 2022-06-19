@@ -77,9 +77,24 @@ The flow chart of our vanilla multimodal framework could be seen in Figure 1 bel
 <p align = "center">
 Figure 1. The Vanilla Multimodal Framework
 </p>
-The format of the input videos is mp4 before the pre-processing step. We extract visual and audio information from the videos and cut each video into 1-second segments using the ffmpeg toolkit. Then, we use the S3FD model to crop faces and python-speech-features to get 13 MFCC features. Each visual and audio segment would be fed into the visual stream network and the audio stream network, respectively. In the visual stream, the input is a sequence of visual frames with spatiotemporal features in it. It goes through the 3D-CNNs network and the output is a 1024-dimensional feature vector. In the audio stream, the input is a sequence of MFCC feature maps. It goes through the ResNet network and the output is also a 1024-dimensional feature vector. Then, the contrastive loss 
-![equation](http://mathurl.com/render.cgi?%5Cinlinemode%20%5Czeta%28s%29%20%3D%20%5Csum_%7Bn%3D1%7D%5E%5Cinfty%20%5Cfrac%7B1%7D%7Bn%5Es%7D%5Cnocache)
-$L_1$\ (1) is computed by measuring the distance between the two feature vectors. Moreover, two cross-entropy losses L2 (3) and L3 (4) are computed and the final loss L (5) would be the weighted sum of the three losses. In our experiment, we choose lambda1=lambda2=lambda3=1.
+The format of the input videos is mp4 before the pre-processing step. We extract visual and audio information from the videos and cut each video into 1-second segments using the ffmpeg toolkit. Then, we use the S3FD model to crop faces and python-speech-features to get 13 MFCC features. Each visual and audio segment would be fed into the visual stream network and the audio stream network, respectively. In the visual stream, the input is a sequence of visual frames with spatiotemporal features in it. It goes through the 3D-CNNs network and the output is a 1024-dimensional feature vector. In the audio stream, the input is a sequence of MFCC feature maps. It goes through the ResNet network and the output is also a 1024-dimensional feature vector. Then, the contrastive loss L1 (1) is computed by measuring the distance between the two feature vectors. Moreover, two cross-entropy losses L2 (3) and L3 (4) are computed and the final loss L (5) would be the weighted sum of the three losses. In our experiment, we chose the weights all to be 1.
+<p align = "center">
+<img width="536" alt="截屏2022-06-18 18 44 52" src="https://user-images.githubusercontent.com/105074735/174462434-cf132c60-57a7-42f6-b3f4-1addf006c058.png">
+</p>
+<p align = "center">
+<img width="544" alt="截屏2022-06-18 18 45 27" src="https://user-images.githubusercontent.com/105074735/174462446-be98143f-0954-40e7-b6db-8d9cef2c6d77.png">
+</p>
+<p align = "center">
+<img width="541" alt="截屏2022-06-18 18 45 52" src="https://user-images.githubusercontent.com/105074735/174462454-a56730da-3f68-4ae2-90cf-5d75bb3065c8.png">
+</p>
+<p align = "center">
+<img width="537" alt="截屏2022-06-18 18 46 13" src="https://user-images.githubusercontent.com/105074735/174462461-f4f02b7b-bdcf-40e1-b6f3-efc742eb0725.png">
+</p>
+<p align = "center">
+<img width="532" alt="截屏2022-06-18 18 46 33" src="https://user-images.githubusercontent.com/105074735/174462472-57eb121e-3554-4483-99cb-86dbac77dfc7.png">
+</p>
+In the training process, we calculated the loss and did the back-propagation using PyTorch. In the predicting process, we calculated the distance between visual and audio feature vectors and averaged the distances among all the segments of a single video to get the dissimilarity score of a single video. We computed the dissimilarity score for both real and fake videos of the training set, and the midpoint between the median values for the real and fake videos is used as a threshold value. If the dissimilarity score of a testing video is bigger than the threshold, it would be classified as fake. Otherwise, it’s real.
+
 ### 2.2 The Multimodal Framework with LSTM
 
 # 4. Evaluation and Results
