@@ -9,7 +9,7 @@
 
 # Abstract
 
-Provide a brief overview of the project objhectives, approach, and results.
+Multimedia forgery threats people's lives from lots of perspectives in contemporary society. It is necessary to derive new and advanced fake video detection models to deal with learning-based video falsification techniques, such as deepfake. We propose an audio-visual based multimodal deepfake detection framework, combining contrastive loss and cross-entropy loss. We further add an LSTM layer to the vanilla framework and test our models on DFTIMIT and DFDC datasets. Our methods achieved perfect performance on DFTIMIT and comparable results on DFDC. We also analyzed the effects to the model performance using different loss combinations.
 
 # 1. Introduction
 ## 1.1 Motivation & Objective
@@ -148,6 +148,57 @@ The two plots further validate the hypothesis that adding L3 loss affects the re
 
 We think the main reasons are as follows. First, we are limited by the computation equipment. We had to reduce the batch size and the input resolution of the face images when running the network with LSTM. We reduced the batch size to 4, and the face image resolution from 224 × 224 to 96 × 96. Secondly, we found that the loss of the LSTM-based model was small during training. This was because the output of the top layer of LSTM was bounded in -1 and 1 due to the use of the Tanh function. Thus, the back propagation might have little impact on the previous CNN network. Gradient vanishing problems were likely to occur, causing the problem of barely learning.
 
-# 5. Discussion and Conclusions
+## 4.4 Comparison of our model and other SOTA methods
+In Table 1, we summarize the AUC scores of our model and other SOTA deepfake detection methods on DFTIMIT and DFDC datasets. Our method achieved perfect performance on DFTIMIT and comparable results on DFDC.
+<p align = "center">
+<img width="842" alt="截屏2022-06-18 21 15 19" src="https://user-images.githubusercontent.com/105074735/174465588-1f6ea1dd-c91f-4d6b-a320-fd399fade686.png">
+</p>
+<p align = "center">
+Table 1. Comparison of our model and other SOTA methods
+</p>
 
+# 5. Discussion and Conclusions
+## 5.1 Advantages
+* Achieved perfect performance on DFTIMIT and decent results on DFDC.
+* Analyzed the effects to the performance using different loss combinations.
+## 5.2 Disadvantages
+* The size of training samples is relatively small due to computation limit.
+* The performance of the LSTM based network is not good as expected.
+## 5.3 Future directions
+* Test our models on bigger and more SOTA datasets.
+* Improve the architecture of the LSTM based network.
+* Try different advanced feature extraction networks and analyze the results.
+* Improve the techniques used in data preprocessing, e.g. face alignment, overlapping, etc.
 # 6. References
+[1] Yuezun Li and Siwei Lyu. 2018. Exposing deepfake videos by detecting face warping artifacts. arXiv preprint arXiv:1811.00656 (2018). https://arxiv.org/abs/1811.00656
+
+[2] Xin Yang, Yuezun Li, and Siwei Lyu. 2019. Exposing deep fakes using inconsistent head poses. In ICASSP 2019-2019 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). IEEE, 8261–8265. https://arxiv.org/abs/1811.00661
+
+[3] David Güera and Edward J Delp. 2018. Deepfake video detection using recurrent neural networks. In 2018 15th IEEE International Conference on Advanced Video and Signal Based Surveillance (AVSS). IEEE, 1–6.
+
+[4] Ekraam Sabir, Jiaxin Cheng, Ayush Jaiswal, Wael AbdAlmageed, Iacopo Masi, and Prem Natarajan. 2019. Recurrent convolutional strategies for face manipulation detection in videos. Interfaces (GUI) 3 (2019), 1.
+
+[5] Mittal, T., Bhattacharya, U., Chandra, R., Bera, A., & Manocha, D. (2020). Emotions Don't Lie: A Deepfake Detection Method using Audio-Visual Affective Cues. ArXiv, abs/2003.06711. https://arxiv.org/abs/2003.06711
+
+[6] Hosler, Brian, et al. "Do deepfakes feel emotions? A semantic approach to detecting deepfakes via emotional inconsistencies." Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2021.
+
+[7] Joon Son Chung and Andrew Zisserman. 2017. Out of Time: Automated Lip Sync in the Wild. 251–263. https://doi.org/10.1007/978-3-319-54427-419
+
+[8] Chugh, Komal, et al. "Not made for each other-audio-visual dissonance-based deepfake detection and localization." Proceedings of the 28th ACM international conference on multimedia. 2020.
+
+[9] Kensho Hara, Hirokatsu Kataoka, and Yutaka Satoh. 2017. Can Spatiotemporal 3D CNNs Retrace the History of 2D CNNs and ImageNet? CoRR abs/1711.09577
+(2017). arXiv:1711.09577 http://arxiv.org/abs/1711.09577
+
+[10] Nelson Mogran, Hervé Bourlard, and Hynek Hermansky. 2004. Automatic Speech Recognition: An Auditory Perspective. Springer New York, New York, NY, 309–338. https://doi.org/10.1007/0-387-21575-1_6
+
+[11] Pavel Korshunov and Sébastien Marcel. 2018. Deepfakes: a new threat to face recognition? assessment and detection. arXiv preprint arXiv:1812.08685 (2018).
+
+[12] BrianDolhansky,RussHowes,BenPflaum,NicoleBaram,andCristianCanton Ferrer. 2019. The Deepfake Detection Challenge (DFDC) Preview Dataset. arXiv preprint arXiv:1910.08854 (2019).
+
+[13] GitHub-shaoanlu/faceswap-GAN:Adenoisingautoencoder+adversarial losses and attention mechanisms for face swapping. https://github.com/shaoanlu/ faceswap-GAN. (Accessed on 02/16/2020).
+
+[14] Conrad Sanderson. 2002. The vidtimit database. Technical Report. IDIAP.
+
+[15] H. H. Nguyen, J. Yamagishi, and I. Echizen. 2019. Capsule-forensics: Using Capsule Networks to Detect Forged Images and Videos. In ICASSP 2019 - 2019 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). 2307–2311.
+
+[16] F. Matern, C. Riess, and M. Stamminger. 2019. Exploiting Visual Artifacts to Expose Deepfakes and Face Manipulations. In 2019 IEEE Winter Applications of Computer Vision Workshops (WACVW). 83–92.
