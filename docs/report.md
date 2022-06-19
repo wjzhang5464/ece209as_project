@@ -68,8 +68,8 @@ In DFDC dataset, there are over 100,000 videos (real and fake videos both includ
 Our method requires the dataset to have both audio and visual channels. The reason why we chose these two datasets is that they are the only two datasets that have both audio and visual information among common deepfake datasets.
 In DFTIMIT, all camera angles are frontal. We selected 3 out of 32 subjects as the test set, which ensures that our method is not learning face identities but fake features.
 In DFDC, due to the limitation of computing equipment, we only selected training data of almost the same size as the DFTIMIT dataset. Each folder in DFDC consists of videos from a single subject. We selected subjects from different folders, covering as many identities as possible. We also selected videos with manipulations on different channels and different fake effects. After that, we removed the incomplete face data. Finally, we used 623 videos for training, and 62 for testing.
-## 2. Architecture
-### 2.1 The Vanilla Multimodal Framework
+## 3.2. Architecture
+### 3.2.1 The Vanilla Multimodal Framework
 The flow chart of our vanilla multimodal framework could be seen in Figure 1 below.
 <p align = "center">
 <img width="779" alt="截屏2022-06-18 17 15 12" src="https://user-images.githubusercontent.com/105074735/174460817-46a24eb5-a119-419a-b4e1-8850d68dd9f0.png">
@@ -95,10 +95,46 @@ The format of the input videos is mp4 before the pre-processing step. We extract
 </p>
 In the training process, we calculated the loss and did the back-propagation using PyTorch. In the predicting process, we calculated the distance between visual and audio feature vectors and averaged the distances among all the segments of a single video to get the dissimilarity score of a single video. We computed the dissimilarity score for both real and fake videos of the training set, and the midpoint between the median values for the real and fake videos is used as a threshold value. If the dissimilarity score of a testing video is bigger than the threshold, it would be classified as fake. Otherwise, it’s real.
 
-### 2.2 The Multimodal Framework with LSTM
+### 3.2.2 The Multimodal Framework with LSTM
+In addition to the vanilla network, we notice that LSTM is useful with respect to detecting temporal inconsistencies in deepfake videos. We’d like to combine LSTM with our current architecture. The intuition is that we suppose the coherence of the segments in a single video would make the dissimilarity score more distinguishable between real and fake videos. Thus, we designed a new architecture, adding an LSTM layer.
 
+The flow chart of our multimodal framework with LSTM could be seen in Figure 2 below.
+<p align = "center">
+<img width="786" alt="截屏2022-06-18 18 52 17" src="https://user-images.githubusercontent.com/105074735/174462619-eaeb38e4-2e70-4dd5-a020-260ea68a55db.png">
+</p>
+<p align = "center">
+Figure 2. The Multimodal Framework with LSTM
+</p>
+
+## 3.3 Platform
+During pre-processing, we used ffmpeg to cut each video into 1-second segments. Then we used S3FD model to crop faces and python_speech_features to get the MFCC features of each segment.
+
+During training and testing, we used PyTorch to build our network and implement it.
+
+All of our experiments were run on Google Colab using one GPU.
 # 4. Evaluation and Results
+Our experiments were implemented logically from three aspects: The first is the performance of our methods on different datasets. The second is for the same dataset, we used different frameworks for comparison. The third is that for each framework, we compared the effects of different loss combinations.
+## 4.1 Results of the vanilla framework on DFTIMIT
+We applied the vanilla framework to DFTIMIT. We used box plots to visualize the scores of real and fake videos. The visualization could be viewed in Figure 3 below.
+<p align = "center">
+<img width="739" alt="截屏2022-06-18 19 28 07" src="https://user-images.githubusercontent.com/105074735/174463337-2ebc3443-3de8-4058-9583-6cf347b3c203.png">
+</p>
+<p align = "center">
+Figure 3. Results of the vanilla framework on DFTIMIT
+</p>
+The greater the difference in score distribution, the better the results. Label 0 represents fake while label 1 represents real. From the results, our method is very effective for DFTIMIT, which can perfectly separate fake and real videos. Additionally, we can see that the score resulting from adding L3 loss is more scattered. We would explain this in the experiments on the DFDC dataset later. In conclusion, our method can fully cope with this simple and small dataset.
 
+## 4.2 Results of the vanilla framework on DFDC
+On DFDC, we also performed the same experiment and the results are shown below in Figure 4.
+<p align = "center">
+<img width="733" alt="截屏2022-06-18 19 30 54" src="https://user-images.githubusercontent.com/105074735/174463393-3870ba63-fd6c-4c38-a484-18e82975238e.png">
+</p>
+<p align = "center">
+Figure 4. Results of the vanilla framework on DFDC
+</p>
+We initially used the combination of cross-entropy loss of video and audio and contrastive loss. But we found that the result was not very good as you can see in the left plot. We thought this was because there were not many audio modifications in the DFDC data set. So the cross-entropy loss of audio, on the contrary, might affect the judgment of the model. In the case that the audio channel is almost not manipulated in the fake videos, the audios of the real video and the fake video are theoretically of no obvious difference. Therefore, we decided to remove L3 and found that the results were significantly improved.
+
+Afterward, in order to further compare the influence of each loss, we trained the network using only L1. It could be seen that the results were not very good, which showed that the cross-entropy loss did help the model to better judge the authenticity of the video. Only using contrastive loss is not enough.
 # 5. Discussion and Conclusions
 
 # 6. References
