@@ -6,7 +6,7 @@ This is a repository for UCLA ECE209AS project done by Ruoye Wang, Jinchen Wu, a
 links to the folders:
 
 * [docs](docs)
-* [software](software)
-* [data](data)
+* [project](project)
+
 
 
