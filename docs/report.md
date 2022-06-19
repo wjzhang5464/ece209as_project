@@ -68,6 +68,19 @@ In DFDC dataset, there are over 100,000 videos (real and fake videos both includ
 Our method requires the dataset to have both audio and visual channels. The reason why we chose these two datasets is that they are the only two datasets that have both audio and visual information among common deepfake datasets.
 In DFTIMIT, all camera angles are frontal. We selected 3 out of 32 subjects as the test set, which ensures that our method is not learning face identities but fake features.
 In DFDC, due to the limitation of computing equipment, we only selected training data of almost the same size as the DFTIMIT dataset. Each folder in DFDC consists of videos from a single subject. We selected subjects from different folders, covering as many identities as possible. We also selected videos with manipulations on different channels and different fake effects. After that, we removed the incomplete face data. Finally, we used 623 videos for training, and 62 for testing.
+## 2. Architecture
+### 2.1 The Vanilla Multimodal Framework
+The flow chart of our vanilla multimodal framework could be seen in Figure 1 below.
+<p align = "center">
+<img width="779" alt="截屏2022-06-18 17 15 12" src="https://user-images.githubusercontent.com/105074735/174460817-46a24eb5-a119-419a-b4e1-8850d68dd9f0.png">
+</p>
+<p align = "center">
+Figure 1. The Vanilla Multimodal Framework
+</p>
+The format of the input videos is mp4 before the pre-processing step. We extract visual and audio information from the videos and cut each video into 1-second segments using the ffmpeg toolkit. Then, we use the S3FD model to crop faces and python-speech-features to get 13 MFCC features. Each visual and audio segment would be fed into the visual stream network and the audio stream network, respectively. In the visual stream, the input is a sequence of visual frames with spatiotemporal features in it. It goes through the 3D-CNNs network and the output is a 1024-dimensional feature vector. In the audio stream, the input is a sequence of MFCC feature maps. It goes through the ResNet network and the output is also a 1024-dimensional feature vector. Then, the contrastive loss $L_1$ (1) is computed by measuring the distance between the two feature vectors. Moreover, two cross-entropy losses L2 (3) and L3 (4) are computed and the final loss L (5) would be the weighted sum of the three losses. In our experiment, we choose lambda1=lambda2=lambda3=1.
+
+### 2.2 The Multimodal Framework with LSTM
+
 # 4. Evaluation and Results
 
 # 5. Discussion and Conclusions
