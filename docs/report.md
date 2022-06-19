@@ -135,6 +135,19 @@ Figure 4. Results of the vanilla framework on DFDC
 We initially used the combination of cross-entropy loss of video and audio and contrastive loss. But we found that the result was not very good as you can see in the left plot. We thought this was because there were not many audio modifications in the DFDC data set. So the cross-entropy loss of audio, on the contrary, might affect the judgment of the model. In the case that the audio channel is almost not manipulated in the fake videos, the audios of the real video and the fake video are theoretically of no obvious difference. Therefore, we decided to remove L3 and found that the results were significantly improved.
 
 Afterward, in order to further compare the influence of each loss, we trained the network using only L1. It could be seen that the results were not very good, which showed that the cross-entropy loss did help the model to better judge the authenticity of the video. Only using contrastive loss is not enough.
+
+## 4.3 Results of the framework with LSTM on DFDC
+Considering that there should be time consistency between the segments of videos, we added an LSTM layer to the original framework. It is hoped that this can facilitate distinguishing real and fake videos. The results are shown in Figure 5.
+<p align = "center">
+<img width="524" alt="截屏2022-06-18 20 47 27" src="https://user-images.githubusercontent.com/105074735/174464991-7e706e61-c2e7-4714-85a5-1d9170f78062.png">
+</p>
+<p align = "center">
+Figure 5. Results of the framework with LSTM on DFDC
+</p>
+The two plots further validate the hypothesis that adding L3 loss affects the results negatively. However, even the results of this LSTM-based model without L3 did not achieve what we wanted. The AUC did not increase but decreased compared with the vanilla model. We also tried to use the output of LSTM for prediction directly, but the results were not much different.
+
+We think the main reasons are as follows. First, we are limited by the computation equipment. We had to reduce the batch size and the input resolution of the face images when running the network with LSTM. We reduced the batch size to 4, and the face image resolution from 224 × 224 to 96 × 96. Secondly, we found that the loss of the LSTM-based model was small during training. This was because the output of the top layer of LSTM was bounded in -1 and 1 due to the use of the Tanh function. Thus, the back propagation might have little impact on the previous CNN network. Gradient vanishing problems were likely to occur, causing the problem of barely learning.
+
 # 5. Discussion and Conclusions
 
 # 6. References
